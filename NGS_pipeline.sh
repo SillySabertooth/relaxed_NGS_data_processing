@@ -259,7 +259,7 @@ $Path_to_pr/annovar/table_annovar.pl ${i}.filt_15.vcf humandb/ -buildver hg19 -o
 
 echo "аннотация для образца ${i} закончена"
 
-mv ${i}.m.sort.bam  ${i}.m.sort.bam.bai ${i}.raw.vcf ${i}.filt.vcf ${i}_anno* $Path_short/Results/ 
+mv ${i}.m.sort.bam  ${i}.m.sort.bam.bai ${i}.raw.vcf ${i}.filt_15.vcf ${i}_anno* $Path_short/Results/ 
 cd ../
 rmdir ${i}/
 
