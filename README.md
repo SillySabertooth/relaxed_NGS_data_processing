@@ -1,5 +1,5 @@
 # relaxed_NGS_data_processing
-This bash-script (with relaxed processing of NGS data by simple programs) was made up for russian speaking people that new with NGS. IMPORTANT<br/>: So, don't laugh - it's not amazing, i know. and, i think, you don't need to use it. Of course it'll not being updated. The sole reason why i pushed it to github - in the start of this work we was should make some report for managerial staff. I made link on the script - and now i can't delete it cause some bureaucratic reports include it. 
+This bash-script (with relaxed processing of NGS data by simple programs) was made up for russian speaking people that new with NGS.<br/> IMPORTANT: So, don't laugh - it's not amazing, i know. and, i think, you don't need to use it. Of course it'll not being updated. The sole reason why i pushed it to github - in the start of this work we was should make some report for managerial staff. I made link on the script - and now i can't delete it cause some bureaucratic reports include it. 
 
 Sorry, but i wrote it for russian speaking and don't want to translate on Eng. The code is simple - all is clear.  
 If somebody interest in the script (i have no idea why it can be),  
