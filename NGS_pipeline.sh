@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version 1.0
+#version 1.1
 
 echo "
 Релаксированный алгоритм обработки данных NGS  
@@ -17,8 +17,8 @@ echo "
 то прописываемый путь дожен быть задан как /media/illumina 
 путь можно скопировать любым образом и вставить при помощи Ctrl+Shift+V в терминал
 "
-read Path_short
-
+#read Path_short
+Path_short=/home/silly/Inna/
 echo "
 Теперь введите путь к рефернсу !вместе с именем файла! 
 на который будет осуществляться выравнивание  
@@ -26,14 +26,14 @@ echo "
 он должен быть в формате .fa, .fasta, .fna и т.п.; hg19 сборка весит ~3 Gb 
 "
 
-read Ref
-
+#read Ref
+Ref=/media/silly/Databases/Ref/GRCh37_by_hand.fna
 echo "
 И еще путь к папке со ВСЕМИ программами 
 "
 
-read Path_to_pr
-
+#read Path_to_pr
+Path_to_pr=/home/silly/progs/
 echo "
 Введите самый высокий номер образца в обрабатываемом сете
 "
@@ -234,20 +234,14 @@ cd $Path/
 
 #############################################
 
-###samtools_make_vcf
-echo "Происходит вызов вариантов при помощи Samtools
-сырые файлы также здесь фильтруются по DP > 15, MQ >30, QUAL > 40 
-для изменения параметров фильтрации - README
+###VarScan
+echo "
+запускается VarScan для образца ${i} через samtools
 "
-echo -e "\nSamtools_log_for_calling\n" >> $Path_short/Log.txt 
-$Path_to_pr/samtools-1.5/samtools mpileup -uvf $Ref ${i}.m.sort.bam | $Path_to_pr/bcftools-1.5/bcftools call -cv - > ${i}.raw.vcf
+echo -e "\nVarScan_log_for_calling\n" >> $Path_short/Log.txt 
+$Path_to_pr/samtools-1.5/samtools mpileup -f /$Ref ${i}.m.sort.bam | java -jar $Path_to_pr/VarScan.v2.3.9.jar mpileup2cns --output-vcf 1 --variants > ${i}.vcf
 
-#vcffilter_filter_variants
-
-$Path_to_pr/vcflib/bin/vcffilter -f "DP > 15 & MQ > 30 & QUAL > 40 " ${i}.raw.vcf > ${i}.filt_15.vcf
-echo "Вызов вариантов и фильтрации закончены для образца ${i}"
-
-###annovar_annotating :)
+##annovar_annotating :)
 echo "Запускается annovar"
 echo -e "\nannovar_log\n" >> $Path_short/Log.txt
 echo "
@@ -255,11 +249,12 @@ echo "
 проверили команду annovar 
 для вашей версии, ваших баз данных и ваших папок
 "
-$Path_to_pr/annovar/table_annovar.pl ${i}.filt_15.vcf humandb/ -buildver hg19 -out ./${i}_anno -remove -protocol refGene,esp6500siv2_all,avsnp147,clinvar_20170501,revel,intervar_20170202,1000g2015aug_all,1000g2015aug_afr,1000g2015aug_eas,1000g2015aug_eur,gnomad_genome -operation g,f,f,f,f,f,f,f,f,f,f -nastring . -vcfinput
+$Path_to_pr/annovar/table_annovar.pl ${i}.vcf /media/silly/Databases/humandb/ -buildver hg19 -out ./${i}_mt -remove -protocol refGene,esp6500siv2_all,avsnp150,clinvar_20170501,revel,intervar_20170202,1000g2015aug_all,1000g2015aug_afr,1000g2015aug_eas,1000g2015aug_eur,gnomad_genome,mitimpact24 -operation g,f,f,f,f,f,f,f,f,f,f,f -nastring . -vcfinput
 
 echo "аннотация для образца ${i} закончена"
 
-mv ${i}.m.sort.bam  ${i}.m.sort.bam.bai ${i}.raw.vcf ${i}.filt_15.vcf ${i}_anno* $Path_short/Results/ 
+mv ${i}.m.sort.bam  ${i}.m.sort.bam.bai *.vcf ${i}_mt.hg19_multianno.txt $Path_short/Results/ 
+rm *.*
 cd ../
 rmdir ${i}/
 
