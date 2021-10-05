@@ -1,10 +1,12 @@
 # relaxed_NGS_data_processing
-This bash-script (with relaxed processing of NGS data by simple programs) was made up for russian speaking people that new with NGS.<br/> IMPORTANT: So, don't laugh - it's not amazing, i know. and, i think, you don't need to use it. Of course it'll not being updated. The sole reason why i pushed it to github - in the start of this work we was should make some report for managerial staff. I made link on the script - and now i can't delete it cause some bureaucratic reports include it. 
 
-Sorry, but i wrote it for russian speaking and don't want to translate on Eng. The code is simple - all is clear.  
-If somebody interest in the script (i have no idea why it can be),  
-i will answer to all questions immediately - danatyermakovich@gmail.com<br/>
-And maybe i might put some English explanation inside the script.
+This bash script was created as a side project during my first steps in the NGS Illumina data processing and shell scripting. It consists of simple free programs and code. The framework includes QC check, filtering, alignment, processing, calling; all the steps mostly use soft cut-offs.<br/> 
+
+Sorry, but I wrote it for Russian-speaking people that are new in the field. 
+NB: since at that time I wanted to automatize the process, the code is overcrowded with not smart conditionings. 
+The commands itself are simple; if somebody interest in the script for any reason, 
+please write to danatyermakovich@gmail.com <br/>
+
 
 ####################RU######################
 
